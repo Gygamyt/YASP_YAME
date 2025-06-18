@@ -1,7 +1,6 @@
 /* Импортируем ваши существующие стили */
 @import './variables.css';
 
-/* Ваш существующий CSS код из style.css */
 
 :root {
     /* Colors */
@@ -1148,5 +1147,236 @@ select.form-control {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Layout Styles */
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-background);
+}
+
+/* Header Styles */
+.header {
+    background: white;
+    border-bottom: 1px solid var(--color-border);
+    padding: 0 20px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.header-date {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-top: 2px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+}
+
+.user-role {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    line-height: 1.2;
+}
+
+.settings-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    transition: all 0.2s ease;
+}
+
+.settings-btn:hover {
+    background-color: var(--color-background-hover);
+    color: var(--color-text-primary);
+}
+
+/* Navigation Styles */
+.navigation {
+    background: white;
+    border-bottom: 1px solid var(--color-border);
+    padding: 0 20px;
+}
+
+.nav-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 5px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    transition: all 0.2s ease;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-item:hover {
+    background-color: var(--color-background-hover);
+    color: var(--color-text-primary);
+}
+
+.nav-item--active {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
+}
+
+.nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-label {
+    white-space: nowrap;
+}
+
+.nav-badge {
+    background: var(--color-danger);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 16px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Main Layout */
+.layout-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.layout-content {
+    flex: 1;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header {
+        padding: 0 15px;
+        height: 60px;
+    }
+
+    .header-title {
+        font-size: 20px;
+    }
+
+    .user-details {
+        display: none;
+    }
+
+    .navigation {
+        padding: 0 15px;
+    }
+
+    .nav-item {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .nav-label {
+        display: none;
+    }
+
+    .layout-content {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-date {
+        display: none;
+    }
+
+    .nav-container {
+        justify-content: space-around;
+    }
+
+    .nav-item {
+        flex: 1;
+        justify-content: center;
     }
 }
