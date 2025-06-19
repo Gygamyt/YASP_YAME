@@ -1,0 +1,52 @@
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    position: relative;
+    background: #374151FF;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 1001;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    padding: 32px 24px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #aaa;
+    transition: color 0.2s;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+.detail-label {
+    font-weight: 500;
+    color: #ffffff;
+    margin-right: 0.5em;
+}
+
+.factor-header .factor-label {
+    margin-right: 0.5em;
+}
+
+.skills-list .skill-tag:not(:last-child) {
+    margin-right: 8px;
+}

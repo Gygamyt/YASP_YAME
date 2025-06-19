@@ -92,10 +92,8 @@ export const Dashboard: React.FC = () => {
                         className="department-filter"
                     >
                         <option value="all">Все отделы</option>
-                        <option value="Engineering">Engineering</option>
-                        <option value="Management">Management</option>
-                        <option value="HR">HR</option>
-                        <option value="Design">Design</option>
+                        <option value="AQA">AQA</option>
+                        <option value="QA">QA</option>
                     </select>
                 </div>
             </div>

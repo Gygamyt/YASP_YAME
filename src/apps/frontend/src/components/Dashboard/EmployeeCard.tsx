@@ -6,7 +6,7 @@ export interface EmployeeCardProps {
     onClick: (employee: Employee) => void;
 }
 
-export const EmployeeCard: React.FC<EmployeeCardProps> = ({ employee, onClick }) => {
+export const EmployeeCard: React.FC<EmployeeCardProps> = ({employee, onClick}) => {
     const handleClick = () => {
         onClick(employee);
     };

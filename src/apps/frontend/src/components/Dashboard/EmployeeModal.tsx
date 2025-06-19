@@ -1,4 +1,5 @@
 import React from 'react';
+import './EmployeeModalStyles.css';
 import { Employee } from '@task-tracker/shared/src/types/employee';
 
 export interface EmployeeModalProps {
@@ -6,7 +7,7 @@ export interface EmployeeModalProps {
     onClose: () => void;
 }
 
-export const EmployeeModal: React.FC<EmployeeModalProps> = ({ employee, onClose }) => {
+export const EmployeeModal: React.FC<EmployeeModalProps> = ({employee, onClose}) => {
     const indexFactors = [
         {
             name: 'activeRequests',
@@ -50,19 +51,17 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({ employee, onClose 
                 onClose();
             }
         };
-
         document.addEventListener('keydown', handleEscape);
         return () => document.removeEventListener('keydown', handleEscape);
     }, [onClose]);
 
     return (
         <div className="modal-backdrop" onClick={handleBackdropClick}>
-            <div className="modal-content">
+            <div className="modal-content" onClick={e => e.stopPropagation()}>
                 <div className="modal-header">
                     <h2>{employee.name}</h2>
-                    <button className="modal-close" onClick={onClose}>×</button>
+                    <button className="modal-close" onClick={onClose} aria-label="Close modal">×</button>
                 </div>
-
                 <div className="modal-body">
                     <div className="employee-details">
                         <div className="detail-row">
@@ -75,9 +74,8 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({ employee, onClose 
                         </div>
                         <div className="detail-row">
                             <span className="detail-label">Индекс загрузки:</span>
-                            <span className={`detail-value index-badge index-badge--${employee.status}`}>
-                {employee.currentIndex.toFixed(1)}
-              </span>
+                            <span
+                                className={`detail-value index-badge index-badge--${employee.status}`}>{employee.currentIndex.toFixed(1)}</span>
                         </div>
                         <div className="detail-row">
                             <span className="detail-label">Последняя активность:</span>
@@ -104,9 +102,7 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({ employee, onClose 
                             <h3>Навыки</h3>
                             <div className="skills-list">
                                 {employee.skills.map((skill, index) => (
-                                    <span key={index} className="skill-tag">
-                    {skill}
-                  </span>
+                                    <span key={index} className="skill-tag">{skill}</span>
                                 ))}
                             </div>
                         </div>
