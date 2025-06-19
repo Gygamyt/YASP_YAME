@@ -1,19 +1,22 @@
 import React from 'react';
 
+// Define TabType consistently with other components
+type TabType = 'dashboard' | 'analytics' | 'add-employee';
+
 export interface NavigationProps {
-    activeTab: string;
-    onTabChange: (tab: string) => void;
+    activeTab: TabType; // Change from string to TabType
+    onTabChange: (tab: TabType) => void; // Change from string to TabType
 }
 
 export interface NavItem {
-    id: string;
+    id: TabType; // Change from string to TabType
     label: string;
     icon: React.ReactNode;
     badge?: number;
 }
 
 export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange }) => {
-    // Navigation items configuration
+    // Navigation items configuration with proper typing
     const navItems: NavItem[] = [
         {
             id: 'dashboard',

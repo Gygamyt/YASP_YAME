@@ -2,10 +2,12 @@ import React from 'react';
 import { Header } from './Header';
 import { Navigation } from './Navigation';
 
+type TabType = 'dashboard' | 'analytics' | 'add-employee';
+
 export interface LayoutProps {
     children: React.ReactNode;
-    activeTab: string;
-    onTabChange: (tab: string) => void;
+    activeTab: TabType;
+    onTabChange: (tab: TabType) => void;
     title?: string;
 }
 

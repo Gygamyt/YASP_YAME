@@ -7,7 +7,6 @@ export interface EmployeeModalProps {
 }
 
 export const EmployeeModal: React.FC<EmployeeModalProps> = ({ employee, onClose }) => {
-    // Index calculation factors with weights
     const indexFactors = [
         {
             name: 'activeRequests',
@@ -39,14 +38,12 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({ employee, onClose 
         }
     ];
 
-    // Handle backdrop click
     const handleBackdropClick = (e: React.MouseEvent) => {
         if (e.target === e.currentTarget) {
             onClose();
         }
     };
 
-    // Handle escape key
     React.useEffect(() => {
         const handleEscape = (e: KeyboardEvent) => {
             if (e.key === 'Escape') {
@@ -67,7 +64,6 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({ employee, onClose 
                 </div>
 
                 <div className="modal-body">
-                    {/* Employee Info */}
                     <div className="employee-details">
                         <div className="detail-row">
                             <span className="detail-label">Должность:</span>
@@ -89,7 +85,6 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({ employee, onClose 
                         </div>
                     </div>
 
-                    {/* Index Factors */}
                     <div className="index-factors">
                         <h3>Факторы влияния на индекс</h3>
                         {indexFactors.map(factor => (
@@ -104,7 +99,6 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({ employee, onClose 
                         ))}
                     </div>
 
-                    {/* Skills */}
                     {employee.skills && employee.skills.length > 0 && (
                         <div className="employee-skills">
                             <h3>Навыки</h3>

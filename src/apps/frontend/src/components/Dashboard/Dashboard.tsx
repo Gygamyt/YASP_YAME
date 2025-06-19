@@ -2,25 +2,22 @@ import React, { useState } from 'react';
 import { useEmployees } from '../../hooks/useEmployees';
 import { EmployeeCard } from './EmployeeCard';
 import { EmployeeModal } from './EmployeeModal';
-import { Employee } from '@task-tracker/shared/src/types/employee';
+import { Employee } from "@task-tracker/shared/src/types";
 
 export const Dashboard: React.FC = () => {
-    const { data: employees, isLoading, error } = useEmployees();
+    const {data: employees, isLoading, error} = useEmployees();
     const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [filterDepartment, setFilterDepartment] = useState<string>('all');
 
-    // Handle employee card click
     const handleEmployeeClick = (employee: Employee) => {
         setSelectedEmployee(employee);
     };
 
-    // Close modal
     const handleCloseModal = () => {
         setSelectedEmployee(null);
     };
 
-    // Filter employees based on search and department
     const filteredEmployees = employees?.filter(employee => {
         const matchesSearch = employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             employee.position.toLowerCase().includes(searchTerm.toLowerCase());
@@ -29,7 +26,6 @@ export const Dashboard: React.FC = () => {
         return matchesSearch && matchesDepartment;
     }) || [];
 
-    // Group employees by status
     const employeesByStatus = {
         green: filteredEmployees.filter(emp => emp.status === 'green'),
         yellow: filteredEmployees.filter(emp => emp.status === 'yellow'),
