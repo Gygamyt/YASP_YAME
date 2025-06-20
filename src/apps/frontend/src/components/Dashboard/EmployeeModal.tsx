@@ -19,21 +19,21 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({employee, onClose})
         {
             name: 'responseTime',
             label: 'Время отклика',
-            value: employee.responseTime,
+            value: 'mock',
             weight: 25,
             description: 'Среднее время ответа на запросы (дни)'
         },
         {
             name: 'interviewLoad',
             label: 'Нагрузка собеседований',
-            value: employee.interviewLoad,
+            value: 'mock',
             weight: 25,
             description: 'Количество запланированных собеседований'
         },
         {
             name: 'daysSinceLastActivity',
             label: 'Дни с последней активности',
-            value: employee.daysSinceLastActivity,
+            value: 'mock',
             weight: 20,
             description: 'Количество дней с момента последней активности'
         }
@@ -65,12 +65,12 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({employee, onClose})
                 <div className="modal-body">
                     <div className="employee-details">
                         <div className="detail-row">
-                            <span className="detail-label">Должность:</span>
-                            <span className="detail-value">{employee.position}</span>
+                            <span className="detail-label">Грейд:</span>
+                            <span className="detail-value">{employee.rate}</span>
                         </div>
                         <div className="detail-row">
                             <span className="detail-label">Отдел:</span>
-                            <span className="detail-value">{employee.department}</span>
+                            <span className="detail-value">{'mock'}</span>
                         </div>
                         <div className="detail-row">
                             <span className="detail-label">Индекс загрузки:</span>
@@ -79,7 +79,7 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({employee, onClose})
                         </div>
                         <div className="detail-row">
                             <span className="detail-label">Последняя активность:</span>
-                            <span className="detail-value">{employee.lastActivity}</span>
+                            <span className="detail-value">{'mock'}</span>
                         </div>
                     </div>
 
@@ -91,7 +91,7 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({employee, onClose})
                                     <span className="factor-label">{factor.label}</span>
                                     <span className="factor-weight">{factor.weight}%</span>
                                 </div>
-                                <div className="factor-value">{factor.value}</div>
+                                <div className="factor-value">{'mock'}</div>
                                 <div className="factor-description">{factor.description}</div>
                             </div>
                         ))}

@@ -1,20 +1,28 @@
+export type EmployeeRate = 'Intern' | 'Junior' | 'Middle' | 'Senior' | 'Lead';
+export type EmployeeLanguage = 'Java' | 'C#' | 'JS/TS' | 'Python' | 'Design';
+export type ProjectStatus = 'submitted' | 'waiting_feedback' | 'passed_stage';
+
+export interface ProjectDetails {
+    id: number;
+    submittedAt: string;
+    status: ProjectStatus;
+    name: string;
+}
+
 export interface Employee {
     id: number;
     name: string;
-    position: string;
-    department: 'Engineering' | 'Management' | 'HR' | 'Design';
-    currentIndex: number;
+    rate: EmployeeRate;
+    language: EmployeeLanguage;
+    currentIndex: number; // 0 (free) — 3 (overloaded)
     status: 'green' | 'yellow' | 'red';
-    activeRequests: number;
-    daysSinceLastActivity: number;
-    interviewLoad: number;
-    responseTime: number;
-    lastActivity: string;
+    activeRequests: ProjectDetails[];
+    plannedInterviews: number;
     skills: string[];
 }
 
 export interface IndexFactor {
-    name: keyof Pick<Employee, 'activeRequests' | 'daysSinceLastActivity' | 'interviewLoad' | 'responseTime'>;
+    name: 'activeRequests' | 'plannedInterviews';
     label: string;
     weight: number;
     description: string;

@@ -9,7 +9,6 @@ export const Header: React.FC<HeaderProps> = ({
                                                   title = "Task Tracker",
                                                   showUserInfo = true
                                               }) => {
-    // Get current date for display
     const currentDate = new Date().toLocaleDateString('ru-RU', {
         weekday: 'long',
         year: 'numeric',

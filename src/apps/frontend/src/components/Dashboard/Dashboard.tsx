@@ -18,13 +18,15 @@ export const Dashboard: React.FC = () => {
         setSelectedEmployee(null);
     };
 
+    // Фильтрация по имени, rate и языку (language)
     const filteredEmployees =
         employees?.filter((employee) => {
             const matchesSearch =
                 employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                employee.position.toLowerCase().includes(searchTerm.toLowerCase());
+                employee.rate.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                employee.language.toLowerCase().includes(searchTerm.toLowerCase());
             const matchesDepartment =
-                filterDepartment === 'all' || employee.department === filterDepartment;
+                filterDepartment === 'all' || employee.language === filterDepartment;
             return matchesSearch && matchesDepartment;
         }) || [];
 
@@ -39,7 +41,7 @@ export const Dashboard: React.FC = () => {
             <div className="dashboard-toolbar">
                 <input
                     type="text"
-                    placeholder="Поиск по имени или должности..."
+                    placeholder="Search by name, rate or language..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="search-input"
@@ -49,24 +51,24 @@ export const Dashboard: React.FC = () => {
                     onChange={(e) => setFilterDepartment(e.target.value)}
                     className="department-filter"
                 >
-                    <option value="all">Все отделы</option>
-                    <option value="Engineering">Engineering</option>
-                    <option value="Management">Management</option>
-                    <option value="HR">HR</option>
-                    <option value="Design">Design</option>
+                    <option value="all">All languages</option>
+                    <option value="Java">Java</option>
+                    <option value="C#">C#</option>
+                    <option value="JS/TS">JS/TS</option>
+                    <option value="Python">Python</option>
                 </select>
                 <div className="dashboard-stats">
                     <div className="stat-card stat-card--green">
                         <span className="stat-number">{employeesByStatus.green.length}</span>
-                        <span className="stat-label">Доступны</span>
+                        <span className="stat-label">Available</span>
                     </div>
                     <div className="stat-card stat-card--yellow">
                         <span className="stat-number">{employeesByStatus.yellow.length}</span>
-                        <span className="stat-label">Средняя загрузка</span>
+                        <span className="stat-label">Medium Load</span>
                     </div>
                     <div className="stat-card stat-card--red">
                         <span className="stat-number">{employeesByStatus.red.length}</span>
-                        <span className="stat-label">Перегружены</span>
+                        <span className="stat-label">Overloaded</span>
                     </div>
                 </div>
             </div>
@@ -75,19 +77,19 @@ export const Dashboard: React.FC = () => {
                 {isLoading ? (
                     <div className="dashboard-loading">
                         <div className="loading-spinner"></div>
-                        <p>Загрузка данных сотрудников...</p>
+                        <p>Loading employees...</p>
                     </div>
                 ) : error ? (
                     <div className="dashboard-error">
-                        <h3>Ошибка загрузки данных</h3>
-                        <p>Не удалось загрузить информацию о сотрудниках</p>
+                        <h3>Error loading data</h3>
+                        <p>Could not load employee information</p>
                         <button onClick={() => window.location.reload()} className="btn btn--primary">
-                            Попробовать снова
+                            Try again
                         </button>
                     </div>
                 ) : filteredEmployees.length === 0 ? (
                     <div className="no-employees">
-                        <p>Сотрудники не найдены</p>
+                        <p>No employees found</p>
                     </div>
                 ) : (
                     filteredEmployees.map((employee) => (
