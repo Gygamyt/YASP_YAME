@@ -1,6 +1,23 @@
-export type EmployeeRate = 'Intern' | 'Junior' | 'Middle' | 'Senior' | 'Lead';
-export type EmployeeLanguage = 'Java' | 'C#' | 'JS/TS' | 'Python';
-export type ProjectStatus = 'submitted' | 'waiting_feedback' | 'passed_stage' | 'rejected' | 'no_updates';
+export type EmployeeRate =
+    | 'Intern'
+    | 'Junior'
+    | 'Middle'
+    | 'Senior'
+    | 'Lead';
+
+export type EmployeeLanguage =
+    | 'Java'
+    | 'C#'
+    | 'JS/TS'
+    | 'Python';
+
+export type ProjectStatus =
+    | 'submitted'
+    | 'waiting_feedback'
+    | 'passed_stage'
+    | 'rejected'
+    | 'no_updates';
+
 export type HardSkills =
     | 'Playwright'
     | 'Selenium'
