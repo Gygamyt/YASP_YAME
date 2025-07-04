@@ -1,67 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Employee, ProjectDetails } from '@task-tracker/shared/src/types/employee';
+import { mockEmployees } from "./mocks.ts";
 
-const mockProjects: ProjectDetails[] = [
-    {
-        id: 1,
-        submittedAt: '2024-06-01',
-        status: 'submitted',
-        name: 'ProjectName'
-    },
-    {
-        id: 2,
-        submittedAt: '2024-06-02',
-        status: 'waiting_feedback',
-        name: 'ProjectName'
-    }
-];
-
-const mockEmployees: Employee[] = [
-    {
-        id: 1,
-        name: 'Ivan Petrov',
-        rate: 'Senior',
-        language: 'JS/TS',
-        currentIndex: 2.1,
-        status: 'yellow',
-        activeRequests: [mockProjects[0]],
-        plannedInterviews: 1,
-        skills: ['React', 'TypeScript', 'Node.js']
-    },
-    {
-        id: 2,
-        name: 'Maria Sidorova',
-        rate: 'Lead',
-        language: 'Python',
-        currentIndex: 2.7,
-        status: 'red',
-        activeRequests: [mockProjects[1], mockProjects[0]],
-        plannedInterviews: 2,
-        skills: ['Management', 'Agile', 'Scrum']
-    },
-    {
-        id: 3,
-        name: 'Alexey Kozlov',
-        rate: 'Middle',
-        language: 'C#',
-        currentIndex: 1.3,
-        status: 'green',
-        activeRequests: [],
-        plannedInterviews: 0,
-        skills: ['.NET', 'Blazor', 'SQL']
-    },
-    {
-        id: 4,
-        name: 'Elena Smirnova',
-        rate: 'Junior',
-        language: 'Java',
-        currentIndex: 2.9,
-        status: 'red',
-        activeRequests: [mockProjects[0]],
-        plannedInterviews: 1,
-        skills: []
-    }
-];
 
 function calculateIndex(requests: ProjectDetails[]): number {
     // Пример: 0 — свободен, 3+ — перегружен

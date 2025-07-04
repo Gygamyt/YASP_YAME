@@ -18,7 +18,6 @@ export const Dashboard: React.FC = () => {
         setSelectedEmployee(null);
     };
 
-    // Фильтрация по имени, rate и языку (language)
     const filteredEmployees =
         employees?.filter((employee) => {
             const matchesSearch =
