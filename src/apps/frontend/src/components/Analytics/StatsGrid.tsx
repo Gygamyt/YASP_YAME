@@ -2,12 +2,48 @@ import React from 'react';
 import { AnalyticsCard } from './AnalyticsCard';
 import { Employee } from '@task-tracker/shared/src/types/employee';
 
+/**
+ * Props for the StatsGrid component.
+ *
+ * @interface StatsGridProps
+ * @property {Employee[]} employees - Array of employee objects to compute analytics for.
+ */
 export interface StatsGridProps {
     employees: Employee[];
 }
 
-export const StatsGrid: React.FC<StatsGridProps> = ({ employees }) => {
-    // Calculate analytics data
+/**
+ * StatsGrid component calculates key team analytics metrics (counts, averages, percentages)
+ * and renders them as a grid of AnalyticsCard components.
+ *
+ * @component
+ * @param {StatsGridProps} props - Component properties.
+ * @param {Employee[]} props.employees - List of employees to analyze.
+ * @returns {React.ReactElement} A grid of analytics cards summarizing team metrics.
+ *
+ * @example
+ * ```
+ * const employees = [...]; // fetched or mocked data
+ * <StatsGrid employees={employees} />;
+ * ```
+ */
+export const StatsGrid: React.FC<StatsGridProps> = ({employees}) => {
+    /**
+     * Computes aggregated analytics from the employees array.
+     * Returns zeroed metrics when the list is empty or undefined.
+     *
+     * @returns {{
+     *   totalEmployees: number;
+     *   averageIndex: number;
+     *   averageResponseTime: number;
+     *   totalActiveRequests: number;
+     *   availableCount: number;
+     *   busyCount: number;
+     *   overloadedCount: number;
+     *   loadPercentage: number;
+     * }}
+     *   Object containing all computed metrics.
+     */
     const analyticsData = React.useMemo(() => {
         if (!employees || employees.length === 0) {
             return {
@@ -29,18 +65,23 @@ export const StatsGrid: React.FC<StatsGridProps> = ({ employees }) => {
         };
 
         const totalEmployees = employees.length;
-        const averageIndex = employees.reduce((sum, emp) => sum + emp.currentIndex, 0) / totalEmployees;
-        // @ts-ignore
+        const averageIndex =
+            employees.reduce((sum, emp) => sum + emp.currentIndex, 0) /
+            totalEmployees;
+        // @ts-ignore: assume responseTime field exists on Employee
         const averageResponseTime = employees.reduce((sum, emp) => sum + emp.responseTime, 0) / totalEmployees;
-        // @ts-ignore
+        // @ts-ignore: assume activeRequests is a number
         const totalActiveRequests = employees.reduce((sum, emp) => sum + emp.activeRequests, 0);
-        const loadPercentage = ((statusGroups.busy.length + statusGroups.overloaded.length) / totalEmployees) * 100;
+        const loadPercentage =
+            ((statusGroups.busy.length + statusGroups.overloaded.length) /
+                totalEmployees) *
+            100;
 
         return {
             totalEmployees,
             averageIndex,
-            averageResponseTime: 1,
-            totalActiveRequests: 1,
+            averageResponseTime,
+            totalActiveRequests,
             availableCount: statusGroups.available.length,
             busyCount: statusGroups.busy.length,
             overloadedCount: statusGroups.overloaded.length,
@@ -48,6 +89,18 @@ export const StatsGrid: React.FC<StatsGridProps> = ({ employees }) => {
         };
     }, [employees]);
 
+    /**
+     * Configuration for each analytics card to render.
+     * Includes title, value, icon, color, and subtitle.
+     *
+     * @type {Array<{
+     *   title: string;
+     *   value: string | number;
+     *   icon: string;
+     *   color: 'primary' | 'info' | 'warning' | 'success' | 'danger';
+     *   subtitle: string;
+     * }>}
+     */
     const statsCards = [
         {
             title: 'Всего сотрудников',
