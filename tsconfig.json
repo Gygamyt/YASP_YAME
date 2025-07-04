@@ -9,8 +9,7 @@
       "dom"
     ],
     "types": [
-      "node",
-      "@playwright/test"
+      "node"
     ],
     "skipLibCheck": true,
     "noEmit": true,
@@ -30,7 +29,6 @@
   "include": [
     "src/tests/**/*.ts",
     "src/**/*.ts",
-    "playwright.config.ts"
   ],
   "exclude": [
     "src/**/*.cjs"

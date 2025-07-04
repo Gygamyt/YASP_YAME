@@ -7,23 +7,21 @@ export interface EmployeeCardProps {
     onClick: (employee: Employee) => void;
 }
 
-export const EmployeeCard: React.FC<EmployeeCardProps> = ({ employee, onClick }) => {
+export const EmployeeCard: React.FC<EmployeeCardProps> = ({employee, onClick}) => {
     const handleClick = () => {
         onClick(employee);
     };
 
     return (
-        <div
-            className={`employee-card employee-card--${employee.status}`}
-            onClick={handleClick}
-            role="button"
-            tabIndex={0}
-            onKeyDown={e => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    handleClick();
-                }
-            }}
-        >
+        <div className={`employee-card employee-card--${employee.status}`}
+             onClick={handleClick}
+             role="button"
+             tabIndex={0}
+             onKeyDown={e => {
+                 if (e.key === 'Enter' || e.key === ' ') {
+                     handleClick();
+                 }
+             }}>
             <div className="employee-header">
                 <div className="employee-info">
                     <h3>{employee.name}</h3>

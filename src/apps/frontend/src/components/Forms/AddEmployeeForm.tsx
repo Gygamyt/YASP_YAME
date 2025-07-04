@@ -12,7 +12,7 @@ export interface AddEmployeeFormProps {
 interface FormData {
     name: string;
     position: string;
-    department: Employee['department'];
+    department: Employee[];
     activeRequests: number;
     interviewLoad: number;
     responseTime: number;
@@ -27,7 +27,7 @@ export const AddEmployeeForm: React.FC<AddEmployeeFormProps> = ({
         register,
         handleSubmit,
         reset,
-        formState: { errors, isSubmitting }
+        formState: {errors, isSubmitting}
     } = useForm<FormData>({
         defaultValues: {
             activeRequests: 0,
@@ -47,6 +47,7 @@ export const AddEmployeeForm: React.FC<AddEmployeeFormProps> = ({
                 daysSinceLastActivity: 0,
             };
 
+            // @ts-ignore
             await addEmployeeMutation.mutateAsync(employeeData);
             toast.success('Сотрудник успешно добавлен!');
             reset();
