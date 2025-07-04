@@ -2,23 +2,53 @@ import React, { useEffect, useRef, useState } from 'react';
 import './EmployeeModalStyles.css';
 import { Employee } from '@task-tracker/shared/src/types/employee';
 
+/**
+ * Props for the EmployeeModal component.
+ *
+ * @interface EmployeeModalProps
+ * @property {Employee} employee - The employee object whose details are displayed.
+ * @property {() => void} onClose - Callback invoked to close the modal.
+ */
 export interface EmployeeModalProps {
     employee: Employee;
     onClose: () => void;
 }
 
 /**
- * EmployeeModal displays detailed info about an employee in a centered card.
- * Added accordion to expand Active Requests.
+ * EmployeeModal displays detailed information about an employee in a centered card overlay.
+ * It supports an accordion for the "Active Requests" factor, showing a list of submitted projects.
  *
  * @component
+ * @param {EmployeeModalProps} props
+ * @param {Employee} props.employee - The employee data to display.
+ * @param {() => void} props.onClose - Function to call when closing the modal.
+ * @returns {React.ReactElement} The rendered EmployeeModal component.
+ *
+ * @example
+ * ```
+ * <EmployeeModal employee={selectedEmployee} onClose={handleClose} />
+ * ```
  */
 export const EmployeeModal: React.FC<EmployeeModalProps> = ({employee, onClose}) => {
+    /**
+     * Name of the currently expanded factor section.
+     */
     const [expanded, setExpanded] = useState<string | null>(null);
 
+    /**
+     * Refs to each accordion content container, keyed by factor name.
+     */
     const contentRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+    /**
+     * Measured heights of each accordion content for smooth expand/collapse.
+     */
     const [contentHeights, setContentHeights] = useState<Record<string, number>>({});
 
+    /**
+     * Calculate and store the scrollHeight of each accordion section
+     * whenever the number of active requests changes.
+     */
     useEffect(() => {
         const heights: Record<string, number> = {};
         Object.entries(contentRefs.current).forEach(([name, el]) => {
@@ -27,6 +57,9 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({employee, onClose})
         setContentHeights(heights);
     }, [employee.activeRequests.length]);
 
+    /**
+     * Configuration of factors displayed in the accordion. Mock data.
+     */
     const indexFactors = [
         {
             name: 'activeRequests',
@@ -34,7 +67,7 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({employee, onClose})
             value: employee.activeRequests.length,
             weight: 30,
             description: `Number of sent CV's`,
-            expandable: true
+            expandable: true,
         },
         {
             name: 'interviewLoad',
@@ -43,19 +76,35 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({employee, onClose})
             weight: 25,
             description: 'Number of scheduled interviews',
             expandable: false,
-        }
+        },
     ];
 
+    /**
+     * Toggle the expanded state for a given factor.
+     *
+     * @param {string} factorName - The key of the factor to toggle.
+     * @returns {void}
+     */
     const handleFactorClick = (factorName: string) => {
         setExpanded(expanded === factorName ? null : factorName);
     };
 
-    const handleBackdropClick = (e: React.MouseEvent) => {
+    /**
+     * Handles clicks on the backdrop to close the modal when clicking outside content.
+     *
+     * @param {React.MouseEvent<HTMLDivElement>} e - The click event.
+     */
+    const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
         if (e.target === e.currentTarget) onClose();
     };
 
+    /**
+     * Close the modal when the Escape key is pressed.
+     */
     useEffect(() => {
-        const onEsc = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+        const onEsc = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') onClose();
+        };
         document.addEventListener('keydown', onEsc);
         return () => document.removeEventListener('keydown', onEsc);
     }, [onClose]);
@@ -66,7 +115,13 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({employee, onClose})
                 {/* Header */}
                 <div className="modal-header">
                     <h2 className="modal-title">{employee.name}</h2>
-                    <button className="modal-close-btn" onClick={onClose} aria-label="Close">×</button>
+                    <button
+                        className="modal-close-btn"
+                        onClick={onClose}
+                        aria-label="Close"
+                    >
+                        ×
+                    </button>
                 </div>
 
                 {/* Body */}
@@ -83,46 +138,64 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({employee, onClose})
                         </div>
                         <div className="detail-row">
                             <span className="detail-label">Load Index:</span>
-                            <span className={`index-badge index-badge--${employee.status}`}>{employee.currentIndex.toFixed(1)}</span>
+                            <span
+                                className={`index-badge index-badge--${employee.status}`}
+                            >
+                {employee.currentIndex.toFixed(1)}
+              </span>
                         </div>
                     </div>
 
                     {/* Factors with Accordion */}
                     <div className="modal-factors section--highlight-alt">
                         <h3 className="factors-title">Load Factors</h3>
-                        {indexFactors.map(f => (
+                        {indexFactors.map((f) => (
                             <div key={f.name} className="factor-item">
-                                <div className={`factor-header ${f.expandable ? 'factor-header--clickable' : ''}`}
-                                     onClick={() => f.expandable && handleFactorClick(f.name)}>
+                                <div
+                                    className={`factor-header ${
+                                        f.expandable ? 'factor-header--clickable' : ''
+                                    }`}
+                                    onClick={() => f.expandable && handleFactorClick(f.name)}
+                                >
                                     <div className="factor-left">
                                         <span className="factor-label">{f.label}</span>
-                                        {/*<span className="factor-weight">{f.weight}%</span>*/}
                                     </div>
                                     <div className="factor-right">
-                                        <span className="factor-value">{f.value}</span>{f.expandable && (
-                                        <span className="factor-toggle-icon">{expanded === f.name ? '▼' : '▶'}</span>)}
+                                        <span className="factor-value">{f.value}</span>
+                                        {f.expandable && (
+                                            <span className="factor-toggle-icon">
+                        {expanded === f.name ? '▼' : '▶'}
+                      </span>
+                                        )}
                                     </div>
                                 </div>
 
                                 {/* Accordion content */}
-                                <div className={`factor-expanded-content${expanded === f.name ? ' is-open' : ''}`}
-                                    ref={el => contentRefs.current[f.name] = el}
+                                <div
+                                    ref={(el) => (contentRefs.current[f.name] = el)}
+                                    className={`factor-expanded-content${
+                                        expanded === f.name ? ' is-open' : ''
+                                    }`}
                                     style={{
-                                        height: expanded === f.name
-                                            ? `${contentHeights[f.name]}px`
-                                            : '0px'}}>
-                                    {employee.activeRequests.length === 0 ? (<div className="no-projects">No active requests</div>) : (
-                                        employee.activeRequests.map(proj => (
+                                        height:
+                                            expanded === f.name
+                                                ? `${contentHeights[f.name]}px`
+                                                : '0px',
+                                    }}
+                                >
+                                    {employee.activeRequests.length === 0 ? (
+                                        <div className="no-projects">No active requests</div>
+                                    ) : (
+                                        employee.activeRequests.map((proj) => (
                                             <div key={proj.id} className="project-item">
                                                 <div className="project-row">
-                                                    <span className="project-name-accordion">{proj.name}</span>
-                                                    <span className="project-date-accordion">Date of sending CV: {new Date(proj.submittedAt).toLocaleDateString()}</span>
+                                                    <span className="project-name-accordion">{proj.name}</span><span
+                                                    className="project-date-accordion">Date of sending CV:{' '}{new Date(proj.submittedAt).toLocaleDateString()}</span>
                                                 </div>
                                             </div>
                                         ))
                                     )}
                                 </div>
-
                                 <div className="factor-description">{f.description}</div>
                             </div>
                         ))}
@@ -133,9 +206,7 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({employee, onClose})
                         <div className="modal-skills section--highlight">
                             <h3 className="skills-title">Skills</h3>
                             <div className="skills-list">
-                                {employee.skills.map((skill, idx) => (
-                                    <span key={idx} className="skill-tag">{skill}</span>
-                                ))}
+                                {employee.skills.map((skill, idx) => (<span key={idx} className="skill-tag">{skill}</span>))}
                             </div>
                         </div>
                     )}
