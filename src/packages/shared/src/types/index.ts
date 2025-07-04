@@ -7,5 +7,6 @@ export type {
     ProjectDetails,
     EmployeeLanguage,
     EmployeeRate,
-    ProjectStatus
+    ProjectStatus,
+    HardSkills
 } from './employee.ts'

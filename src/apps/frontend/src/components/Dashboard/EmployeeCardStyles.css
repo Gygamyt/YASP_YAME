@@ -130,6 +130,16 @@
     border-color: #10b981;
 }
 
+.project-status-dot--no_updates {
+    background: #fee2e2;
+    border-color: #ef4444;
+}
+
+.project-status-dot--rejected {
+    border-color: #ef4444;
+    background: #ef4444;
+}
+
 .project-name {
     flex: 1;
     white-space: nowrap;

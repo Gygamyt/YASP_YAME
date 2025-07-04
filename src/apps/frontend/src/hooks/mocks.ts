@@ -12,6 +12,18 @@ const mockProjects: ProjectDetails[] = [
         submittedAt: '2024-06-02',
         status: 'waiting_feedback',
         name: 'ProjectName'
+    },
+    {
+        id: 3,
+        submittedAt: '2024-06-03',
+        status: "no_updates",
+        name: 'ProjectName'
+    },
+    {
+        id: 4,
+        submittedAt: '2024-01-01',
+        status: "rejected",
+        name: 'ProjectName'
     }
 ];
 
@@ -25,7 +37,7 @@ export const mockEmployees: Employee[] = [
         status: 'yellow',
         activeRequests: [mockProjects[0]],
         plannedInterviews: 1,
-        skills: ['React', 'TypeScript', 'Node.js']
+        skills: ['Playwright', 'PyTest', 'Node.js']
     },
     {
         id: 2,
@@ -36,7 +48,7 @@ export const mockEmployees: Employee[] = [
         status: 'red',
         activeRequests: [mockProjects[1], mockProjects[0]],
         plannedInterviews: 2,
-        skills: ['Management', 'Agile', 'Scrum']
+        skills: ['Management', 'PyTest']
     },
     {
         id: 3,
@@ -47,7 +59,7 @@ export const mockEmployees: Employee[] = [
         status: 'green',
         activeRequests: [],
         plannedInterviews: 0,
-        skills: ['.NET', 'Blazor', 'SQL']
+        skills: ['.NET', 'SQL']
     },
     {
         id: 4,
@@ -56,7 +68,7 @@ export const mockEmployees: Employee[] = [
         language: 'Java',
         currentIndex: 2.9,
         status: 'red',
-        activeRequests: [mockProjects[0]],
+        activeRequests: [mockProjects[2], mockProjects[3]],
         plannedInterviews: 1,
         skills: []
     }
