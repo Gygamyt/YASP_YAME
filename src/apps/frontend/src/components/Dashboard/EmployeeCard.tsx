@@ -1,6 +1,6 @@
 import React from 'react';
 import { Employee } from "@task-tracker/shared/src/types/employee";
-import './EmployeeCard.css';
+import './EmployeeCardStyles.css';
 
 export interface EmployeeCardProps {
     employee: Employee;
