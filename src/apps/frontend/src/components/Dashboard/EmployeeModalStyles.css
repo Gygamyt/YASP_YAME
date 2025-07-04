@@ -1,52 +1,197 @@
+/* EmployeeModalStyles.css */
+
+/* Backdrop */
 .modal-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 1000;
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1000;
+    animation: fadeInBackdrop 0.2s ease-out;
 }
 
-.modal-content {
-    position: relative;
-    background: #374151FF;
-    border-radius: 12px;
-    max-width: 600px;
-    width: 90vw;
-    max-height: 80vh;
-    overflow-y: auto;
-    z-index: 1001;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-    padding: 32px 24px;
+@keyframes fadeInBackdrop {
+    from {
+        background: rgba(0, 0, 0, 0);
+    }
+    to {
+        background: rgba(0, 0, 0, 0.4);
+    }
 }
 
-.modal-close {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: none;
+/* Modal card */
+.modal-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-base);
+    width: min(90%, 500px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUpModal 0.3s ease-out;
+}
+
+@keyframes slideUpModal {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Header */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-16);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.modal-title {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+}
+
+.modal-close-btn {
+    background: transparent;
     border: none;
-    font-size: 28px;
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
     cursor: pointer;
-    color: #aaa;
-    transition: color 0.2s;
+    line-height: 1;
 }
 
-.modal-close:hover {
-    color: #333;
+/* Body */
+.modal-body {
+    padding: var(--space-16);
+    display: grid;
+    gap: var(--space-24);
+}
+
+/* Details grid */
+.modal-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--space-12);
+}
+
+.detail-row {
+    display: flex;
+    flex-direction: column;
 }
 
 .detail-label {
-    font-weight: 500;
-    color: #ffffff;
-    margin-right: 0.5em;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
 }
 
-.factor-header .factor-label {
-    margin-right: 0.5em;
+.detail-value {
+    font-size: var(--font-size-md);
+    color: var(--color-text);
 }
 
-.skills-list .skill-tag:not(:last-child) {
-    margin-right: 8px;
+/* Index badge */
+.index-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+}
+
+.index-badge--green {
+    background: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.index-badge--yellow {
+    background: var(--color-warning-light);
+    color: var(--color-warning);
+}
+
+.index-badge--red {
+    background: var(--color-error-light);
+    color: var(--color-error);
+}
+
+/* Factors */
+.modal-factors {
+    display: grid;
+    gap: var(--space-12);
+}
+
+.factors-title {
+    margin: 0 0 var(--space-8);
+    font-size: var(--font-size-md);
+    color: var(--color-text);
+}
+
+.factor-item {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-12);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.factor-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.factor-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+}
+
+.factor-weight {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.factor-value {
+    font-size: var(--font-size-md);
+    font-weight: 600;
+}
+
+.factor-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+/* Skills */
+.modal-skills {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+}
+
+.skills-title {
+    margin: 0;
+    font-size: var(--font-size-md);
+    color: var(--color-text);
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+}
+
+.skill-tag {
+    background: var(--color-border-light);
+    color: var(--color-text);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--font-size-sm);
 }

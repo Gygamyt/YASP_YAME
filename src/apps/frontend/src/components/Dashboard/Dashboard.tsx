@@ -109,15 +109,15 @@ export const Dashboard: React.FC = () => {
                 <div className="dashboard-stats">
                     <div className="stat-card stat-card--green">
                         <span className="stat-number">{employeesByStatus.green.length}</span>
-                        <span className="stat-label">Available</span>
+                        <span className="stat-label-load-data">Available</span>
                     </div>
                     <div className="stat-card stat-card--yellow">
                         <span className="stat-number">{employeesByStatus.yellow.length}</span>
-                        <span className="stat-label">Medium Load</span>
+                        <span className="stat-label-load-data">Medium</span>
                     </div>
                     <div className="stat-card stat-card--red">
                         <span className="stat-number">{employeesByStatus.red.length}</span>
-                        <span className="stat-label">Overloaded</span>
+                        <span className="stat-label-load-data">Overload</span>
                     </div>
                 </div>
             </div>
