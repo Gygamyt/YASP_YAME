@@ -3,22 +3,68 @@ import { useEmployees } from '../../hooks/useEmployees';
 import { EmployeeCard } from './EmployeeCard';
 import { EmployeeModal } from './EmployeeModal';
 import './DashboardStyles.css';
+import { Employee } from "@task-tracker/shared/src/types";
 
+/**
+ * Dashboard component for displaying and managing employee information.
+ * Provides search, filtering, and employee detail viewing capabilities.
+ *
+ * @component
+ * @returns {React.ReactElement} The dashboard component with employee grid and controls.
+ *
+ * @example
+ * ```
+ * import { Dashboard } from './Dashboard';
+ *
+ * function App() {
+ *   return <Dashboard />;
+ * }
+ * ```
+ */
 export const Dashboard: React.FC = () => {
-    const { data: employees, isLoading, error } = useEmployees();
+    /**
+     * Employee data from the custom hook.
+     */
+    const {data: employees, isLoading, error} = useEmployees();
+
+    /**
+     * Currently selected employee for modal display.
+     */
     const [selectedEmployee, setSelectedEmployee] = useState(null);
+
+    /**
+     * Search term for filtering employees by name, rate, or language.
+     */
     const [searchTerm, setSearchTerm] = useState('');
+
+    /**
+     * Department filter for filtering employees by programming language.
+     */
     const [filterDepartment, setFilterDepartment] = useState('all');
 
-    const handleEmployeeClick = (employee: any) => {
+    /**
+     * Handles employee card click to open modal with details.
+     * @param {Employee} employee - The employee object to display in modal.
+     * @returns {void}
+     */
+    const handleEmployeeClick = (employee: any): void => {
         setSelectedEmployee(employee);
     };
 
-    const handleCloseModal = () => {
+    /**
+     * Closes the employee detail modal.
+     * @returns {void}
+     */
+    const handleCloseModal = (): void => {
         setSelectedEmployee(null);
     };
 
-    const filteredEmployees =
+    /**
+     * Filtered employees based on search term and department selection.
+     * Filters by name, rate, language, and department.
+     * @type {Employee[]}
+     */
+    const filteredEmployees: Employee[] =
         employees?.filter((employee) => {
             const matchesSearch =
                 employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -29,7 +75,11 @@ export const Dashboard: React.FC = () => {
             return matchesSearch && matchesDepartment;
         }) || [];
 
-    const employeesByStatus = {
+    /**
+     * Employees grouped by their workload status for statistics display.
+     * @type {{ green: Employee[], yellow: Employee[], red: Employee[] }}
+     */
+    const employeesByStatus: { green: Employee[]; yellow: Employee[]; red: Employee[]; } = {
         green: filteredEmployees.filter((emp) => emp.status === 'green'),
         yellow: filteredEmployees.filter((emp) => emp.status === 'yellow'),
         red: filteredEmployees.filter((emp) => emp.status === 'red'),
@@ -92,13 +142,13 @@ export const Dashboard: React.FC = () => {
                     </div>
                 ) : (
                     filteredEmployees.map((employee) => (
-                        <EmployeeCard key={employee.id} employee={employee} onClick={handleEmployeeClick} />
+                        <EmployeeCard key={employee.id} employee={employee} onClick={handleEmployeeClick}/>
                     ))
                 )}
             </div>
 
             {selectedEmployee && (
-                <EmployeeModal employee={selectedEmployee} onClose={handleCloseModal} />
+                <EmployeeModal employee={selectedEmployee} onClose={handleCloseModal}/>
             )}
         </div>
     );
