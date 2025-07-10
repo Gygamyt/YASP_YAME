@@ -1,6 +1,6 @@
 import React from 'react';
 import { AnalyticsCard } from './AnalyticsCard';
-import { Employee } from '@task-tracker/shared/src/types/employee';
+import { Employee } from '@task-tracker/shared/src/types/employee/employee.ts';
 
 /**
  * Props for the StatsGrid component.

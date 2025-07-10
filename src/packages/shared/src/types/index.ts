@@ -4,9 +4,12 @@ export type {
     DepartmentStats,
     TeamAnalytics,
     StatusThreshold,
-    ProjectDetails,
     EmployeeLanguage,
     EmployeeRate,
-    ProjectStatus,
     HardSkills
-} from './employee.ts'
+} from './employee/employee.ts'
+
+export type {
+    ProjectDetails,
+    ProjectStatus
+} from './project/project.ts'

@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Employee, ProjectDetails } from '@task-tracker/shared/src/types/employee';
+import { Employee, ProjectDetails } from '@task-tracker/shared/src/types/employee/employee.ts';
 import { mockEmployees } from "./mocks.ts";
 
 /**

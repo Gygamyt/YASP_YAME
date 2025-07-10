@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Employee } from '@task-tracker/shared/src/types/employee';
+import { Employee } from '@task-tracker/shared/src/types/employee/employee.ts';
 import { useAddEmployee } from '../../hooks/useEmployees';
 import toast from 'react-hot-toast';
 

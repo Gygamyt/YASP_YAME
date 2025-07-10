@@ -1,5 +1,5 @@
 import { api } from './api';
-import { Employee } from "@task-tracker/shared/src/types/employee";
+import { Employee } from "@task-tracker/shared/src/types/employee/employee.ts";
 
 export const employeeService = {
     async getAll(): Promise<Employee[]> {

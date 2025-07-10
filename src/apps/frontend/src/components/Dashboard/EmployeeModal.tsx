@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './EmployeeModalStyles.css';
-import { Employee } from '@task-tracker/shared/src/types/employee';
+import { Employee } from '@task-tracker/shared/src/types/employee/employee.ts';
 
 /**
  * Props for the EmployeeModal component.
