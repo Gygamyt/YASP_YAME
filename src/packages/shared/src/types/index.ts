@@ -11,5 +11,5 @@ export type {
 
 export type {
     ProjectDetails,
-    ProjectStatus
+    RequestStatus
 } from './project/project.ts'

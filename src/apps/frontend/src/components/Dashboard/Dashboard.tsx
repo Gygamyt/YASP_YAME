@@ -172,7 +172,7 @@ export const Dashboard: React.FC = () => {
                             key={employee.id}
                             employee={employee}
                             onClick={handleEmployeeClick}
-                            onAddProjectClick={handleAssignProjectClick} // Pass the new handler
+                            onAddRequestClick={handleAssignProjectClick}
                         />
                     ))
                 )}

@@ -66,10 +66,10 @@
     /* Apply general button styles if needed, or define specific modal button styles */
 }
 
-.modal .btn--primary {
-     /* Apply primary button styles */
+.btn--assign-project {
+    composes: btn btn--primary from "src/apps/frontend/src/styles/globals.css"; /* Inherit styles from global buttons */
 }
 
-.modal .btn--secondary {
-    /* Apply secondary button styles */
+.btn--cancel {
+    composes: btn btn--secondary from "src/apps/frontend/src/styles/globals.css"; /* Inherit styles from global buttons */
 }
