@@ -7,10 +7,12 @@ import './EmployeeCardStyles.css';
  * @interface EmployeeCardProps
  * @property {Employee} employee - The employee data to display.
  * @property {(employee: Employee) => void} onClick - Callback function triggered when card is clicked.
+ * @property {(employeeId: string) => void} onAddProjectClick - Callback function triggered when the 'Add Project' button is clicked.
  */
 export interface EmployeeCardProps {
     employee: Employee;
     onClick: (employee: Employee) => void;
+    onAddProjectClick: (employee: Employee) => void;
 }
 
 /**
@@ -22,6 +24,7 @@ export interface EmployeeCardProps {
  * @param {EmployeeCardProps} props - The component props.
  * @param {Employee} props.employee - Employee object containing all employee data.
  * @param {(employee: Employee) => void} props.onClick - Click handler function.
+ * @param {(employeeId: string) => void} props.onAddProjectClick - Click handler function for the 'Add Project' button.
  * @returns {React.ReactElement} A clickable card displaying employee information.
  *
  * @example
@@ -38,7 +41,7 @@ export interface EmployeeCardProps {
  * />
  * ```
  */
-export const EmployeeCard: React.FC<EmployeeCardProps> = ({employee, onClick}: EmployeeCardProps): React.ReactElement => {
+export const EmployeeCard: React.FC<EmployeeCardProps> = ({employee, onClick, onAddProjectClick}: EmployeeCardProps): React.ReactElement => {
     /**
      * Handles click events on the employee card.
      * Triggers the onClick callback with the employee data.
@@ -59,12 +62,24 @@ export const EmployeeCard: React.FC<EmployeeCardProps> = ({employee, onClick}: E
                  }
              }}>
 
+
             {/* Employee header section with name, position, and workload index */}
             <div className="employee-header">
                 <div className="employee-info">
                     <h3>{employee.name}</h3>
                     <p className="employee-position">{employee.rate} | {employee.language}</p>
                 </div>
+                {/* Button to add a project */}
+                <button
+                    className="add-project-btn"
+                    onClick={(e) => {
+                        e.stopPropagation(); // Prevent card click handler from firing
+                        onAddProjectClick(employee); // Ensure employee.id is passed as a string
+                    }}
+                    title="Add Project"
+                >
+                    Add Project
+                </button>
                 <div className="index-score">
                     <div className={`index-value index-value--${employee.status}`}>
                         {employee.currentIndex.toFixed(2)}

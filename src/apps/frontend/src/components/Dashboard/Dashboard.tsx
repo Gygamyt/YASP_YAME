@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useEmployees } from '../../hooks/useEmployees';
 import { EmployeeCard } from './EmployeeCard';
 import { EmployeeModal } from './EmployeeModal';
+import { ProjectAssignmentModal } from './ProjectAssignmentModal'; // Import the new modal
 import './DashboardStyles.css';
 import { Employee } from "@task-tracker/shared/src/types";
 
@@ -30,7 +31,12 @@ export const Dashboard: React.FC = () => {
     /**
      * Currently selected employee for modal display.
      */
-    const [selectedEmployee, setSelectedEmployee] = useState(null);
+    const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+
+    /**
+     * Employee object of the employee to whom a project is being assigned.
+     */
+    const [employeeToAssignProjectTo, setEmployeeToAssignProjectTo] = useState<Employee | null>(null);
 
     /**
      * Search term for filtering employees by name, rate, or language.
@@ -47,8 +53,20 @@ export const Dashboard: React.FC = () => {
      * @param {Employee} employee - The employee object to display in modal.
      * @returns {void}
      */
-    const handleEmployeeClick = (employee: any): void => {
+    const handleEmployeeClick = (employee: Employee): void => {
         setSelectedEmployee(employee);
+    };
+
+    /**
+     * Handles the click on the 'Add Project' button for an employee.
+     * Sets the employee object to assign a project to.
+     * @param {Employee} employee - The employee object.
+     * @returns {void}
+     */
+    const handleAssignProjectClick = (employee: Employee): void => {
+        setEmployeeToAssignProjectTo(employee);
+        // Here you would typically open a modal to select/assign the project
+        console.log(`Assigning project to employee: ${employee.name} (ID: ${employee.id})`); // Placeholder
     };
 
     /**
@@ -57,6 +75,14 @@ export const Dashboard: React.FC = () => {
      */
     const handleCloseModal = (): void => {
         setSelectedEmployee(null);
+    };
+
+    /**
+     * Closes the project assignment modal/form.
+     * @returns {void}
+     */
+    const handleCloseAssignProject = (): void => {
+        setEmployeeToAssignProjectTo(null);
     };
 
     /**
@@ -142,13 +168,26 @@ export const Dashboard: React.FC = () => {
                     </div>
                 ) : (
                     filteredEmployees.map((employee) => (
-                        <EmployeeCard key={employee.id} employee={employee} onClick={handleEmployeeClick}/>
+                        <EmployeeCard
+                            key={employee.id}
+                            employee={employee}
+                            onClick={handleEmployeeClick}
+                            onAddProjectClick={handleAssignProjectClick} // Pass the new handler
+                        />
                     ))
                 )}
             </div>
 
             {selectedEmployee && (
                 <EmployeeModal employee={selectedEmployee} onClose={handleCloseModal}/>
+            )}
+
+            {/* Render Project Assignment Modal if an employee is selected for assignment */}
+            {employeeToAssignProjectTo && (
+                <ProjectAssignmentModal
+                    employee={employeeToAssignProjectTo}
+                    onClose={handleCloseAssignProject}
+                />
             )}
         </div>
     );

@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Employee, ProjectDetails } from '@task-tracker/shared/src/types/employee/employee.ts';
 import { mockEmployees } from "./mocks.ts";
+import { Employee, ProjectDetails } from "@task-tracker/shared/src/types";
 
 /**
  * Calculate workload index based on active project requests.
@@ -75,7 +75,7 @@ export const useAddEmployee = () => {
             return addedEmployee;
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['employees'] });
+            queryClient.invalidateQueries({queryKey: ['employees']});
         },
         onError: (error) => {
             console.error('Error adding employee:', error);
@@ -104,7 +104,7 @@ export const useUpdateEmployee = () => {
         unknown,
         { id: number; data: Partial<Employee> }
     >({
-        mutationFn: async ({ id, data }) => {
+        mutationFn: async ({id, data}) => {
             await new Promise(resolve => setTimeout(resolve, 600));
             const index = mockEmployees.findIndex(emp => emp.id === id);
             if (index === -1) throw new Error('Employee not found');
@@ -120,7 +120,7 @@ export const useUpdateEmployee = () => {
             return updatedEmployee;
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['employees'] });
+            queryClient.invalidateQueries({queryKey: ['employees']});
         },
         onError: (error) => {
             console.error('Error updating employee:', error);
@@ -148,7 +148,7 @@ export const useDeleteEmployee = () => {
             mockEmployees.splice(index, 1);
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['employees'] });
+            queryClient.invalidateQueries({queryKey: ['employees']});
         },
         onError: (error) => {
             console.error('Error deleting employee:', error);
